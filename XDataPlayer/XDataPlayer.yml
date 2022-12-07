@@ -1,0 +1,13 @@
+ 
+XDataPlayerConfig:
+  ServerIP: 127.0.0.1
+  Port: 6000
+  TotalTick: 28801
+  MarketChannelKey: 0XFF0000D1
+  CPUID: -1
+  TickerListPath: /home/xtrader/Test/XDataPlayer/CFFEXTickerList.yml
+  BackTest: true
+  MarketDataPath: /home/xtrader/Test/XDataPlayer/Market/
+  IntervalMS : 1
+  BeginDay : 2022-08-10
+  EndDay: 2022-08-12
