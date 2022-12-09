@@ -22,6 +22,8 @@ sudo sh /home/xtrader/Test/CTPTrader/run.sh
 - XMonitor监控客户端启动：
 
 ```bash
+# 打包依赖库到当前目录Lib目录下，执行一次即可
+/home/xtrader/Test/XMonitor/DeployApp.sh XMonitor_0.9.0
 sh /home/xtrader/Test/XMonitor/run.sh
 ```
 
