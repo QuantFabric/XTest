@@ -1,0 +1,45 @@
+TickerList:                             
+  -
+    TickerIndex: 0
+    Ticker: v2401
+    ExchangeID: DCE
+    PriceTick: 1.0
+    
+  -
+    TickerIndex: 1
+    Ticker: v2402
+    ExchangeID: DCE
+    PriceTick: 1.0
+
+  -
+    TickerIndex: 2
+    Ticker: v2403
+    ExchangeID: DCE
+    PriceTick: 1.0
+  -
+    TickerIndex: 3
+    Ticker: v2404
+    ExchangeID: DCE
+    PriceTick: 1.0
+  -
+    TickerIndex: 4
+    Ticker: p2401
+    ExchangeID: DCE
+    PriceTick: 1.0
+
+  -
+    TickerIndex: 5
+    Ticker: p2402
+    ExchangeID: DCE
+    PriceTick: 1.0
+
+  -
+    TickerIndex: 6
+    Ticker: p2403
+    ExchangeID: DCE
+    PriceTick: 1.0
+  -
+    TickerIndex: 7
+    Ticker: p2404
+    ExchangeID: DCE
+    PriceTick: 1.0

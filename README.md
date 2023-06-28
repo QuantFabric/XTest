@@ -3,7 +3,6 @@
 - 在Linux服务器创建xtrader用户，并在xtrader主目录下执行：
 
 ```bash
-git clone https://gitcode.net/quantfabric/XTest.git Test
 git clone https://github.com/QuantFabric/XTest.git Test
 ```
 
