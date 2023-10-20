@@ -1,0 +1,83 @@
+HFTraderConfig:
+  Account : 215010093
+  XWatcherIP: 127.0.0.1
+  XWatcherPort: 8001
+  MarketGateWay: XTPMarketGateWay
+  TraderGateWay: XTPTraderGateWay
+  StrategyFactory: StockStrategyFactory
+  MarketConfig: /home/xtrader/XTest/XTPHFTrader/Config/HFTrader215010093.yml
+  TraderConfig: /home/xtrader/XTest/XTPHFTrader/Config/HFTrader215010093.yml
+  BackTest: false
+  BackTestDataPath: /home/xtrader/HFTrader/BackTest/
+  BeginDay : 2022-08-10
+  EndDay: 2022-08-12
+  DataPath: /home/xtrader/Test/HFTrader/BackTest/
+  Colo: XServer
+  CPUSET: 1, 2, 3
+  AutoTrade: true
+  StrategyList: 
+    - 
+      Name: StockTestStrategy
+      ExchangeID: SHSZ
+      ConfigPath: 
+      ContinuousAuctionPeriod:
+                  - 09:30:00.000-11:30:00.000
+                  - 13:00:00.000-15:00:00.000
+      Interval: 1
+      CloseTick: 240000
+      TickerListPath: /home/xtrader/XTest/XTPHFTrader/Config/StockTickerList.yml
+
+MarketConfig:
+  CallAuctionPeriod: 09:29:00.000
+  ContinuousAuctionPeriod:
+                  - 09:30:00.000-11:30:00.000
+                  - 13:00:00.000-15:00:00.000
+  Interval: 1
+  Interface:
+  LocalIP: 
+  MultiCastIP:  
+  # Client ID
+  LocalPort: 1
+  TickerListPath: /home/xtrader/XTest/XTPHFTrader/Config/StockTickerList.yml
+  APIErrorPath: /home/xtrader/HFTrader/Config/REMError.yml
+  # Account
+  Extend1: 215010093
+  # IP
+  Extend2: 119.3.103.38
+  # Port
+  Extend3: 6002
+  # 
+  Extend4: 
+  Extend5: 
+
+TraderConfig:
+  Broker: XTP
+  Product: XTP_1
+  ExchangeID: SHSZ
+  BussinessType: 1
+  BrokerID : 9999
+  Account : 215010093
+  Password : ck87uEwQ
+  AppID : client
+  AuthCode : client_auth_code
+  QryFund: true
+  CancelAll: true
+  CloseToday: true
+  TickerCancelLimit: 100
+  OrderLimit: 4000
+  TickerListPath: /home/xtrader/XTest/XTPHFTrader/Config/StockTickerList.yml
+  APIErrorPath: /home/xtrader/HFTrader/Config/REMError.yml
+  # IP
+  Extend1: 122.112.139.0
+  # Port
+  Extend2: 6102
+  # Client ID
+  Extend3: 2
+  # Key
+  Extend4: b8aa7173bba3470e390d787219b2112e
+  Extend5: 
+  Extend6: 
+  Extend7: 
+  Extend8: 
+  Extend9: 
+  Extend10: 

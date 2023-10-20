@@ -1,0 +1,82 @@
+HFTraderConfig:
+  Account : 53392900673
+  XWatcherIP: 127.0.0.1
+  XWatcherPort: 8001
+  MarketGateWay: XTPMarketGateWay
+  TraderGateWay: XTPTraderGateWay
+  StrategyFactory: StockStrategyFactory
+  MarketConfig: /home/xtrader/XTest/XTPHFTrader/Config/HFTrader53392900673.yml
+  TraderConfig: /home/xtrader/XTest/XTPHFTrader/Config/HFTrader53392900673.yml
+  BackTest: false
+  BackTestDataPath: /home/xtrader/HFTrader/BackTest/
+  BeginDay : 2022-08-10
+  EndDay: 2022-08-12
+  DataPath: /home/xtrader/Test/HFTrader/BackTest/
+  Colo: XServer
+  CPUSET: 1, 2, 3
+  AutoTrade: true
+  StrategyList: 
+    - 
+      Name: StockTestStrategy
+      ExchangeID: SHSZ
+      ConfigPath: 
+      ContinuousAuctionPeriod:
+                  - 09:30:00.000-11:30:00.000
+                  - 13:00:00.000-15:00:00.000
+      Interval: 1
+      CloseTick: 240000
+      TickerListPath: /home/xtrader/XTest/XTPHFTrader/Config/StockTickerList.yml
+
+MarketConfig:
+  CallAuctionPeriod: 09:29:00.000
+  ContinuousAuctionPeriod:
+                  - 09:30:00.000-11:30:00.000
+                  - 13:00:00.000-15:00:00.000
+  Interval: 1
+  Interface:
+  LocalIP: 
+  MultiCastIP:  
+  # Client ID
+  LocalPort: 1
+  TickerListPath: /home/xtrader/XTest/XTPHFTrader/Config/StockTickerList.yml
+  APIErrorPath: /home/xtrader/HFTrader/Config/REMError.yml
+  # Account
+  Extend1: 53392900673
+  # IP
+  Extend2: 119.3.103.38
+  # Port
+  Extend3: 6002
+  Extend4: 
+  Extend5: 
+
+TraderConfig:
+  Broker: XTP
+  Product: XTP_2
+  ExchangeID: SHSZ
+  BussinessType: 2
+  BrokerID : 9999
+  Account : 53392900673
+  Password : f9gJIywJ
+  AppID : client
+  AuthCode : client_auth_code
+  QryFund: true
+  CancelAll: true
+  CloseToday: true
+  TickerCancelLimit: 100
+  OrderLimit: 4000
+  TickerListPath: /home/xtrader/XTest/XTPHFTrader/Config/StockTickerList.yml
+  APIErrorPath: /home/xtrader/HFTrader/Config/REMError.yml
+  # XTP: IP
+  Extend1: 122.112.139.0
+  # XTP: Port
+  Extend2: 6111
+  # Client ID 
+  Extend3: 2
+  # XTP: Key
+  Extend4: b8aa7173bba3470e390d787219b2112e
+  Extend5: 
+  Extend6: 
+  Extend7: 
+  Extend8: 
+  Extend9: 
+  Extend10: 
