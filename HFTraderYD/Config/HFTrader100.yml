@@ -1,0 +1,89 @@
+HFTraderConfig:
+  Account : 100
+  XWatcherIP: 127.0.0.1
+  XWatcherPort: 8001
+  MarketGateWay: CTPMarketGateWay
+  TraderGateWay: YDTraderGateWay
+  StrategyFactory: FutureStrategyFactory
+  MarketConfig: /home/xtrader/XTest/HFTraderYD/Config/HFTrader100.yml
+  TraderConfig: /home/xtrader/XTest/HFTraderYD/Config/HFTrader100.yml
+  BackTest: false
+  BackTestDataPath: /home/xtrader/XTest/HFTraderYD/BackTest/
+  BeginDay : 20250313
+  DataPath: /home/xtrader/XTest/HFTraderYD/BackTest/
+  EndDay: 20250314
+  Colo: XServer
+  CPUSET: 31, 32, 33
+  AutoTrade: true
+  StrategyList: 
+    - 
+      Name: LatencyTestStrategy
+      ExchangeID: SHFE
+      ConfigPath: 
+      ContinuousAuctionPeriod:
+                  - 09:30:00.000-11:30:00.000
+                  - 13:00:00.000-15:00:00.000
+      Interval: 500
+      CloseTick: 20
+      TickerListPath: /home/xtrader/XTest/HFTraderYD/Config/TickerList.yml
+
+MarketConfig:
+  CallAuctionPeriod: 09:29:00.000
+  ContinuousAuctionPeriod:
+                  - 09:30:00.000-11:30:00.000
+                  - 13:00:00.000-15:00:00.000
+  Interval: 500
+  Interface:
+  LocalIP: 
+  MultiCastIP: 
+  LocalPort: 0
+  TickerListPath: /home/xtrader/XTest/HFTraderYD/Config/TickerList.yml
+  APIErrorPath: /home/xtrader/XTest/HFTraderYD/Config/YDError.yml
+  # CTP:FrontAddr REM: LoginID
+  Extend1: tcp://180.168.146.187:10131
+  # CTP:BrokerID  REM: PassWord
+  Extend2: 9999
+  # CTP: UserID   REMTCP: IP  REMUDP: ExchangeID
+  Extend3: 188795
+  # CTP: PassWord REMTCP: Port 
+  Extend4: 123456
+  Extend5: 
+
+TraderConfig:
+  Broker: YD
+  Product: YD1
+  ExchangeID: SHFE
+  BusinessType: 3
+  BrokerID : 9999
+  Account : 100
+  Password : 100
+  AppID : yd_dev_1.0
+  AuthCode : ecbf8f06469eba63956b79705d95a603
+  QryFund: true
+  CancelAll: true
+  CloseToday: false
+  TickerCancelLimit: 500
+  OrderLimit: 4000
+  TickerListPath: /home/xtrader/XTest/HFTraderYD/Config/TickerList.yml
+  APIErrorPath: /home/xtrader/XTest/HFTraderYD/Config/YDError.yml
+  # CTP:FrontAddr YD: YD API Config file  REM: EES Trader Lib Path
+  Extend1: /home/xtrader/XTest/HFTraderYD/Config/YD100.txt
+  # REM: TradeServerIP
+  Extend2: 
+  # REM: TradeServerPort
+  Extend3: 
+  # REM: TradeServerUDPPort
+  Extend4: 
+  # REM: QueryServerIP
+  Extend5: 
+  # REM: QueryServerPort
+  Extend6:
+  # REM: QuoteServerIP
+  Extend7:
+  # REM: QuoteServerPort
+  Extend8:
+  # REM: LocalTradeIP
+  Extend9:
+  # REM: LocalTradeUDPPort
+  Extend10: 
+

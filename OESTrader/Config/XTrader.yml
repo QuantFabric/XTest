@@ -1,11 +1,11 @@
 XTraderConfig:
-  ExchangeID: CFFEX
-  Product : Test
+  ExchangeID: SH
+  Product : Test3
   Broker : OES
   BrokerID : 8888
   Account : 1888000729
   Password : 1
-  BussinessType: 2
+  BusinessType: 2
   AppID : client
   AuthCode : client_auth_code
   CloseToday: false
@@ -13,34 +13,11 @@ XTraderConfig:
   Port: 8001
   OpenTime: 09:00:00.000
   CloseTime: 23:30:00.000
-  TraderTimeOut: 1000000
-  OrderChannelKey: 0XFF000002
-  ReportChannelKey: 0XFF000003
   QryFund: false
   CancelAll: true
-  TickerListPath: /home/xtrader/Test/OESTrader/Config/TickerList.yml 
-  ErrorPath: /home/xtrader/Test/OESTrader/Config/OESError.yml
-  RiskServerIP: 127.0.0.1
-  RiskServerPort: 8008
+  TickerListPath: /home/xtrader/XTest/OESTrader/Config/TickerList.yml 
+  ErrorPath: /home/xtrader/XTest/OESTrader/Config/OESError.yml
+  RiskServerName: RiskServer
+  OrderServerName: OrderServer
   TraderAPI: OES
-  TraderAPIConfig: /home/xtrader/Test/OESTrader/Config/OESAPIC.conf
-  CPUSET: -1
-
-REMConfig:
-  TradeServerIP: 183.129.220.106
-  TradeServerPort: 21000
-  TradeServerUDPPort: 0
-  QueryServerIP: 183.129.220.106
-  QueryServerPort: 21001
-  QuoteServerIP: 183.129.220.106
-  QuoteServerPort: 21006
-  LocalTradeIP: 
-  LocalTradeUDPPort: 0 
-  EESTraderLibPath: /home/xtrader/Test/REMTrader/Lib/
-
-CTPConfig:
-  FrontAddr: tcp://180.168.146.187:10201
-  #FrontAddr: tcp://180.168.146.187:10130
-
-YDConfig:
-  APIConfig: /home/xtrader/Test/YDTrader/Config/YDAPI.txt
+  TraderAPIConfig: /home/xtrader/XTest/OESTrader/Config/OESAPIC.conf

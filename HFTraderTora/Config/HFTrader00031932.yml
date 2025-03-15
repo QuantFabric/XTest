@@ -1,0 +1,89 @@
+HFTraderConfig:
+  Account : 00031932 
+  XWatcherIP: 127.0.0.1
+  XWatcherPort: 8001
+  MarketGateWay: ToraL1MarketGateWay
+  TraderGateWay: ToraStockTraderGateWay
+  StrategyFactory: StockStrategyFactory
+  MarketConfig: /home/xtrader/XTest/HFTraderTora/Config/HFTrader00031932.yml
+  TraderConfig: /home/xtrader/XTest/HFTraderTora/Config/HFTrader00031932.yml
+  BackTest: false
+  BackTestDataPath: /home/xtrader/XTest/HFTraderTora/BackTest/
+  BeginDay : 20250313
+  EndDay: 20250314
+  DataPath: /home/xtrader/XTest/HFTraderTora/BackTest/
+  Colo: XServer
+  CPUSET: 1, 2, 3
+  AutoTrade: true
+  StrategyList: 
+    - 
+      Name: StockTestStrategy
+      ExchangeID: SHSZ
+      ConfigPath: 
+      ContinuousAuctionPeriod:
+                  - 09:30:00.000-11:30:00.000
+                  - 13:00:00.000-15:00:00.000
+      Interval: 1
+      CloseTick: 240000
+      TickerListPath: /home/xtrader/XTest/HFTraderTora/Config/StockTickerList.yml
+
+MarketConfig:
+  CallAuctionPeriod: 20:59:00.000
+  ContinuousAuctionPeriod:
+                  - 09:30:00.000-11:30:00.000
+                  - 13:00:00.000-15:00:00.000
+  Interval: 1
+  Interface:
+  LocalIP: 
+  MultiCastIP:  
+  LocalPort: 0
+  TickerListPath: /home/xtrader/XTest/HFTraderTora/Config/StockTickerList.yml
+  APIErrorPath: /home/xtrader/XTest/HFTraderTora/Config/REMError.yml
+  # Tora:FrontAddr tcp://210.14.72.21:4402 
+  Extend1: tcp://210.14.72.21:4402
+  # InterfaceIP
+  Extend2: 
+  # Tora: DeriveFrontAddress
+  Extend3: 
+  # Tora: DeriveInterfaceIP
+  Extend4: 
+  # Tora: 
+  Extend5:  
+
+TraderConfig:
+  Broker: Tora
+  Product: Tora1
+  ExchangeID: SHSZ
+  BusinessType: 1
+  BrokerID : 9999
+  Account : 00031932
+  Password : 48744916
+  AppID : client
+  AuthCode : client_auth_code
+  QryFund: true
+  CancelAll: true
+  CloseToday: true
+  TickerCancelLimit: 2000
+  OrderLimit: 4000
+  TickerListPath: /home/xtrader/XTest/HFTraderTora/Config/StockTickerList.yml
+  APIErrorPath: /home/xtrader/XTest/HFTraderTora/Config/ToraError.yml
+  # Tora:FrontAddr 
+  Extend1: tcp://210.14.72.21:4400
+  # Tora: ProductInfo
+  Extend2: Tora1
+  # TerminalInfo 
+  Extend3: zxcv
+  # 
+  Extend4: 0
+  # 
+  Extend5: 0
+  # 
+  Extend6: 0
+  # 
+  Extend7: 0
+  # 
+  Extend8: 0
+  # 
+  Extend9:
+  # 
+  Extend10: 0

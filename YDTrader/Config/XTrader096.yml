@@ -1,0 +1,27 @@
+XTraderConfig:
+  Product : YD
+  Broker : YD
+  BrokerID : 9999
+  Account : 096
+  Password : 096
+  BusinessType: 3
+  AppID : yd_dev_1.0
+  AuthCode : ecbf8f06469eba63956b79705d95a603
+  CloseToday: false
+  ServerIP: 127.0.0.1
+  Port: 8001
+  OpenTime: 09:00:00.000
+  CloseTime: 15:00:00.000
+  TraderTimeOut: 1000000
+  QryFund: false
+  CancelAll: true
+  TickerListPath: /home/xtrader/XTest/YDTrader/Config/TickerList.yml 
+  ErrorPath: /home/xtrader/XTest/YDTrader/Config/YDError.yml
+  RiskServerName: RiskServer
+  OrderServerName: OrderServer
+  TraderAPI: YD
+  TraderAPIConfig: /home/xtrader/XTest/YDTrader/Config/XTrader096.yml
+
+
+YDConfig:
+  APIConfig: /home/xtrader/XTest/YDTrader/Config/YD.txt

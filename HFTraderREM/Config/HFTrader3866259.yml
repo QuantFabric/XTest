@@ -1,0 +1,92 @@
+HFTraderConfig:
+  Account : 3866259
+  XWatcherIP: 127.0.0.1
+  XWatcherPort: 8001
+  MarketGateWay: REMMarketGateWay
+  TraderGateWay: REMTraderGateWay
+  StrategyFactory: FutureStrategyFactory
+  MarketConfig: /home/xtrader/XTest/HFTraderREM/Config/HFTrader3866259.yml
+  TraderConfig: /home/xtrader/XTest/HFTraderREM/Config/HFTrader3866259.yml
+  BackTest: false
+  BackTestDataPath: /home/xtrader/XTest/HFTraderREM/BackTest/
+  BeginDay : 20250313
+  EndDay: 20250314
+  DataPath: /home/xtrader/XTest/HFTraderREM/Market/
+  Colo: XServer
+  CPUSET: 1, 2, 3
+  AutoTrade: true
+  StrategyList: 
+    - 
+      Name: LatencyTestStrategy
+      ExchangeID: SHFE
+      ConfigPath: 
+      ContinuousAuctionPeriod:
+                  - 21:00:00.000-23:00:00.000
+                  - 09:00:00.000-10:15:00.000
+                  - 10:30:00.000-11:30:00.000
+                  - 13:30:00.000-15:00:00.000
+      Interval: 500
+      CloseTick: 10
+      TickerListPath: /home/xtrader/XTest/HFTraderREM/Config/TickerList.yml
+
+MarketConfig:
+  CallAuctionPeriod: 20:59:00.000
+  ContinuousAuctionPeriod:
+                  - 21:00:00.000-23:00:00.000
+                  - 09:00:00.000-10:15:00.000
+                  - 10:30:00.000-11:30:00.000
+                  - 13:30:00.000-15:00:00.000
+  Interval: 500
+  Interface:
+  LocalIP: 
+  MultiCastIP:  
+  LocalPort: 0
+  TickerListPath: /home/xtrader/XTest/HFTraderREM/Config/TickerList.yml
+  APIErrorPath: /home/xtrader/XTest/HFTraderREM/Config/REMError.yml
+  # CTP:FrontAddr REM: LoginID
+  Extend1: 3866259 
+  # CTP:BrokerID  REM: PassWord
+  Extend2: 1
+  # CTP: UserID   REMTCP: IP  REMUDP: ExchangeID
+  Extend3: 183.129.220.106
+  # CTP: PassWord REMTCP: Port 
+  Extend4: 21006
+  Extend5: 
+
+TraderConfig:
+  Broker: REM
+  Product: Test6
+  ExchangeID: SHFE
+  BusinessType: 3
+  BrokerID : 9999
+  Account : 3866259
+  Password : 1
+  AppID : client
+  AuthCode : client_auth_code
+  QryFund: true
+  CancelAll: true
+  CloseToday: true
+  TickerCancelLimit: 2000
+  OrderLimit: 4000
+  TickerListPath: /home/xtrader/XTest/HFTraderREM/Config/TickerList.yml
+  APIErrorPath: /home/xtrader/XTest/HFTraderREM/Config/REMError.yml
+  # CTP:FrontAddr YD: YD API Config file  REM: EES Trader Lib Path
+  Extend1: /home/xtrader/XTest/HFTraderREM/Lib/
+  # REM: TradeServerIP
+  Extend2: 183.129.220.106
+  # REM: TradeServerPort
+  Extend3: 21000
+  # REM: TradeServerUDPPort
+  Extend4: 0
+  # REM: QueryServerIP
+  Extend5: 183.129.220.106
+  # REM: QueryServerPort
+  Extend6: 21001
+  # REM: QuoteServerIP
+  Extend7: 183.129.220.106
+  # REM: QuoteServerPort
+  Extend8: 21006
+  # REM: LocalTradeIP
+  Extend9:
+  # REM: LocalTradeUDPPort
+  Extend10: 0

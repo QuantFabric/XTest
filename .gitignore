@@ -1,0 +1,14 @@
+/*/*.log
+/*/*.con
+/*/pid.txt
+/*/log/
+/*/output/
+/*/core.*
+/XServer/Bin/
+/CTPTrader/flow/
+/HFTraderCTP/flow/
+/REMTrader/*.bin
+/HFTraderREM/*.bin
+/REMTrader/tool/*.log
+/HFTraderREM/tool/*.log
+/XDataPlayer/Market/

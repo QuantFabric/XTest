@@ -6,5 +6,5 @@ mkdir -p $APP_LOG_PATH
 cd $WORK_PATH
 sleep 2
 export LD_LIBRARY_PATH=$WORK_PATH/Lib:$LD_LIBRARY_PATH
-nohup $WORK_PATH/XRiskJudge_0.8.0 -d -a XRiskJudge -f $WORK_PATH/XRiskJudge.yml > $APP_LOG_PATH/XRiskJudge_run.log 2>&1 &
+nohup $WORK_PATH/XRiskJudge_0.9.3 -d -a XRiskJudge -f $WORK_PATH/XRiskJudge.yml > $APP_LOG_PATH/XRiskJudge_run.log 2>&1 &
 echo $! > pid.txt

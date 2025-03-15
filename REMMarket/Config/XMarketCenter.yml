@@ -1,28 +1,19 @@
 MarketCenterConfig:
   ServerIP: 127.0.0.1
   Port: 8001
-  BussinessType: 3
-  ExchangeID: CFFEX
+  BusinessType: 3
+  ExchangeID: SHFE
   ToMonitor : true
   Future: true
   TotalTick: 28801
-  MarketChannelKey: 0XFF000001
+  MarketServer: MarketServer1
   RecvTimeOut: 150000
   CallAuctionPeriod: 09:29:00.000
   ContinuousAuctionPeriod:
                   - 09:30:00.000-11:30:00.000
                   - 13:00:00.000-15:00:00.000
-  TickerListPath: /home/xtrader/Test/REMMarket/Config/TickerList.yml
-  APIConfig: /home/xtrader/Test/REMMarket/Config/XMarketCenter.yml
-  CPUSET: -1, -1
-
-CTPMarketSource:
-  FrontAddr: tcp://180.168.146.187:10211
-  #FrontAddr: tcp://180.168.146.187:10131
-  BrokerID: 9999
-  Account: 188795
-  Password: 
-  TickerListPath: /home/xtrader/Test/XMarketCenter/Config/TickerList.yml
+  TickerListPath: /home/xtrader/XTest/REMMarket/Config/TickerList.yml
+  APIConfig: /home/xtrader/XTest/REMMarket/Config/XMarketCenter.yml
 
 REMMarketSource:
   Account: 3866259
@@ -33,4 +24,4 @@ REMMarketSource:
   MultiCastPort: 0
   LocalIP: ""
   LocalPort: 0
-  TickerListPath: /home/xtrader/Test/REMMarket/Config/TickerList.yml
+  TickerListPath: /home/xtrader/XTest/REMMarket/Config/TickerList.yml

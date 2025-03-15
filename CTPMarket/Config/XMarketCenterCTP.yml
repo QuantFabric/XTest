@@ -1,0 +1,24 @@
+MarketCenterConfig:
+  ServerIP: 127.0.0.1
+  Port: 8001
+  ExchangeID: SHFE
+  BusinessType: 3
+  ToMonitor : true
+  Future: true
+  TotalTick: 28801
+  MarketServer: MarketServer
+  RecvTimeOut: 150000
+  CallAuctionPeriod: 09:29:00.000
+  ContinuousAuctionPeriod:
+                  - 09:30:00.000-11:30:00.000
+                  - 13:00:00.000-15:00:00.000
+  TickerListPath: /home/xtrader/XTest/CTPMarket/Config/TickerList.yml
+  APIConfig: /home/xtrader/XTest/CTPMarket/Config/XMarketCenterCTP.yml
+
+CTPMarketSource:
+  FrontAddr: tcp://180.168.146.187:10212
+  #FrontAddr: tcp://180.168.146.187:10131
+  BrokerID: 9999
+  Account: 188795 
+  Password: 123456
+  TickerListPath: /home/xtrader/XTest/CTPMarket/Config/TickerList.yml

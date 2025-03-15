@@ -1,0 +1,29 @@
+XTraderConfig:
+  ExchangeID: SHFE
+  Product : Test1
+  Broker : CTP
+  BrokerID : 9999
+  Account : 188795
+  Password : YYLyyl123#
+  BusinessType: 3
+  AppID : simnow_client_test
+  AuthCode : 0000000000000000
+  CloseToday: false
+  ServerIP: 127.0.0.1
+  Port: 8001
+  OpenTime: 09:00:00.000
+  CloseTime: 23:30:00.000
+  TraderTimeOut: 1000000
+  QryFund: false
+  CancelAll: true
+  TickerListPath: /home/xtrader/XTest/CTPTrader/Config/TickerList.yml 
+  ErrorPath: /home/xtrader/XTest/CTPTrader/Config/Error.yml
+  RiskServerName: RiskServer
+  OrderServerName: OrderServer
+  TraderAPI: CTP
+  TraderAPIConfig: /home/xtrader/XTest/CTPTrader/Config/XTrader188795.yml
+
+
+CTPConfig:
+  FrontAddr: tcp://180.168.146.187:10201
+  #FrontAddr: tcp://180.168.146.187:10130
