@@ -52,7 +52,7 @@ MarketConfig:
 
 TraderConfig:
   Broker: SimNow
-  Product: Test5
+  Product: HFTCTP
   ExchangeID: SHFE
   BusinessType: 3
   BrokerID : 9999

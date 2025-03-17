@@ -51,7 +51,7 @@ MarketConfig:
 
 TraderConfig:
   Broker: YD
-  Product: YD1
+  Product: HFTYD
   ExchangeID: SHFE
   BusinessType: 3
   BrokerID : 9999

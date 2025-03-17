@@ -52,7 +52,7 @@ MarketConfig:
 
 TraderConfig:
   Broker: Tora
-  Product: Tora1
+  Product: HFTTora
   ExchangeID: SHSZ
   BusinessType: 1
   BrokerID : 9999

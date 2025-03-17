@@ -52,7 +52,7 @@ MarketConfig:
 
 TraderConfig:
   Broker: XTP
-  Product: XTP_1
+  Product: HFTXTP
   ExchangeID: SHSZ
   BusinessType: 1
   BrokerID : 9999

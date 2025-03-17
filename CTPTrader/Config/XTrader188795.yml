@@ -1,7 +1,7 @@
 XTraderConfig:
   ExchangeID: SHFE
-  Product : Test1
-  Broker : CTP
+  Product : CTP
+  Broker : SimNow
   BrokerID : 9999
   Account : 188795
   Password : YYLyyl123#

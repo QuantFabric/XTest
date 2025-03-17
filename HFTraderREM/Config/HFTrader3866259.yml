@@ -55,7 +55,7 @@ MarketConfig:
 
 TraderConfig:
   Broker: REM
-  Product: Test6
+  Product: HFTREM
   ExchangeID: SHFE
   BusinessType: 3
   BrokerID : 9999
