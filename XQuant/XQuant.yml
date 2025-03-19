@@ -1,0 +1,12 @@
+XQuantConfig:
+  XWatcherIP: 127.0.0.1
+  XWatcherPort: 8001
+  StrategyName: TestStrategy
+  StrategyID: 1
+  AccountList: 188795
+  TickerListPath: /home/xtrader/XTest/XQuant/TickerList.yml
+  MarketServerName: MarketServer
+  OrderServerName: OrderServer
+
+
+
