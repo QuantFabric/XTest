@@ -16,6 +16,7 @@ XTraderConfig:
   TraderTimeOut: 1000000
   QryFund: false
   CancelAll: true
+  CPUSET: 13
   TickerListPath: /home/xtrader/XTest/CTPTrader/Config/TickerList.yml 
   ErrorPath: /home/xtrader/XTest/CTPTrader/Config/Error.yml
   RiskServerName: RiskServer

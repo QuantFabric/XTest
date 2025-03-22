@@ -8,6 +8,7 @@ MarketCenterConfig:
   TotalTick: 28801
   RecvTimeOut: 150000
   MarketServer: MarketServer
+  CPUSET: -1, -1
   CallAuctionPeriod: 09:29:00.000
   ContinuousAuctionPeriod:
                   - 09:30:00.000-11:30:00.000
