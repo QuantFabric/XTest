@@ -15,7 +15,7 @@ XTraderConfig:
   CloseTime: 23:30:00.000
   QryFund: false
   CancelAll: true
-  CPUSET: -1
+  CPUSET: -1, -1
   TickerListPath: /home/xtrader/XTest/OESTrader/Config/StockTickerList.yml 
   ErrorPath: /home/xtrader/XTest/OESTrader/Config/OESError.yml
   RiskServerName: RiskServer

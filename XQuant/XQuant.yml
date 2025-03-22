@@ -6,4 +6,4 @@ XQuantConfig:
   TickerListPath: /home/xtrader/XTest/XQuant/TickerList.yml
   MarketServerName: MarketServer
   OrderServerName: OrderServer
-  CPUSET: 14
+  CPUSET: 17
