@@ -1,25 +1,26 @@
+import sys
+sys.path.append(".")
 import shm_connection
 import pack_message
 import time
 import signal
-import sys
 import datetime
 import os
 from loguru import logger # type: ignore
 from HPSocket import TcpPack
 from HPSocket import helper
 import HPSocket.pyhpsocket as HPSocket
-
+from kline import KLineGenerator, BarData
 
 
 def print_msg(func:str, msg):
     logger.debug(f"{func} MessageType {msg.MessageType:#X}")
     if msg.MessageType == pack_message.EMessageType.EFutureMarketData:
-        logger.debug("Colo:{} Broker:{} ExchangeID:{} TradingDay:{} ActionDay:{} UpdateTime:{} MillSec:{} LastPrice:{} "
+        logger.debug("Colo:{} Ticker:{} ExchangeID:{} TradingDay:{} ActionDay:{} UpdateTime:{} MillSec:{} LastPrice:{} "
                      "Volume:{} Turnover:{} OpenPrice:{} ClosePrice:{} PreClosePrice:{} SettlementPrice:{} PreSettlementPrice:{} "
                      "OpenInterest:{} PreOpenInterest:{} HighestPrice:{} LowestPrice:{} UpperLimitPrice:{} LowerLimitPrice:{} "
                      "BidPrice1:{} BidVolume1:{} AskPrice1:{} AskVolume1:{} RecvLocalTime:{} CurrentTime:{}", 
-                    msg.FutureMarketData.Colo, msg.FutureMarketData.Broker, msg.FutureMarketData.ExchangeID, msg.FutureMarketData.TradingDay, 
+                    msg.FutureMarketData.Colo, msg.FutureMarketData.Ticker, msg.FutureMarketData.ExchangeID, msg.FutureMarketData.TradingDay, 
                     msg.FutureMarketData.ActionDay, msg.FutureMarketData.UpdateTime, msg.FutureMarketData.MillSec, msg.FutureMarketData.LastPrice,
                     msg.FutureMarketData.Volume, msg.FutureMarketData.Turnover, msg.FutureMarketData.OpenPrice, msg.FutureMarketData.ClosePrice,
                     msg.FutureMarketData.PreClosePrice, msg.FutureMarketData.SettlementPrice, msg.FutureMarketData.PreSettlementPrice,
@@ -115,10 +116,40 @@ def signal_handler(sig, frame):
 
 
 class BaseEngine(object):
-    def __init__(self, strategy_name:str, strategy_id:int):
+    def __init__(self, strategy_name:str, strategy_id:int, snapshot_interval, slice_per_sec, intervals:list, trading_sections:list):
         self.strategy_name = strategy_name
         self.program_name = ""
         self.strategy_id = strategy_id
+        self.snapshot_interval = snapshot_interval
+        self.slice_per_sec = slice_per_sec
+        self.intervals = intervals
+        self.trading_sections = list()
+        self.section_start = 0
+        self.section_end = 0
+        timestamp:int = int(time.time())
+        struct_time = time.strptime(f"{datetime.datetime.now().strftime('%Y-%m-%d')} 17:00:00", "%Y-%m-%d %H:%M:%S")
+        compare_time = int(time.mktime(struct_time))
+        for (start_time, end_time) in trading_sections:
+            struct_time = time.strptime(f"{datetime.datetime.now().strftime('%Y-%m-%d')} {start_time}", "%Y-%m-%d %H:%M:%S")
+            _start_time = int(time.mktime(struct_time))
+            struct_time = time.strptime(f"{datetime.datetime.now().strftime('%Y-%m-%d')} {end_time}", "%Y-%m-%d %H:%M:%S")
+            _end_time = int(time.mktime(struct_time))
+            if timestamp > compare_time:
+                if _end_time < _start_time:
+                    _end_time = _end_time + 24 * 60 * 60
+                self.trading_sections.append((_start_time, _end_time))
+                logger.info(f"BaseEngine TradingSection:{start_time}-{end_time} {_start_time}-{_end_time}")
+                break
+            else:
+                # 过滤夜盘时间
+                if compare_time < _start_time:
+                    continue
+                # 日盘盘中启动时过滤已经执行交易小节
+                if timestamp > _end_time:
+                    continue
+                self.trading_sections.append((_start_time, _end_time))
+                logger.info(f"BaseEngine TradingSection:{start_time}-{end_time} {_start_time}-{_end_time}")
+
         self.data_connection = None
         self.hp_pack_client = None
         self.msg = pack_message.PackMessage()
@@ -126,15 +157,13 @@ class BaseEngine(object):
         self.position_info_dict = dict()
         self.order_connection_dict = dict()
         self.order_id = 1
+        self.klines = dict()
+        self.timestamp_sec = 0
+        self.new_order:bool = False
+        self.order_request:pack_message.PackMessage = pack_message.PackMessage()
 
-        self.start_time = datetime.datetime.now().time()
-        self.end_time = None
-        target_time1 = datetime.time(15, 30, 0)
-        target_time2 = datetime.time(23, 30, 0)
-        if self.start_time < target_time1:
-            self.end_time = target_time1
-        elif self.start_time < target_time2:
-            self.end_time = target_time2
+        self.start_time = int(time.time())
+        self.end_time = self.trading_sections[-1][1] + 10 * 60
 
     def connect_to_xwatcher(self, ip:str, port:int):
         # 启动客户端连接XWatcher
@@ -189,6 +218,9 @@ class BaseEngine(object):
     def update_tick(self, msg: pack_message.PackMessage):
         print_msg("update_tick", msg)
 
+    def on_window_bar(self, bar: BarData):
+        raise NotImplementedError("BaseEngine基类中on_window_bar方法必须在子类重新实现")
+
     def notify_orderstatus(self, msg:pack_message.PackMessage):
         print_msg("notify_orderstatus", msg)
 
@@ -197,7 +229,28 @@ class BaseEngine(object):
 
     def notify_position(self, msg: pack_message.PackMessage):
         print_msg("notify_position", msg)
-            
+
+    def check_trading(self, timestamp:int):
+        ret : bool = False
+        for (start_time, end_time) in self.trading_sections:
+            if start_time <= timestamp and timestamp < end_time:
+                self.section_start = start_time * 1000
+                self.section_end = end_time * 1000
+                ret = True
+                break
+        return ret
+
+    def cancel_order(self, action_order: pack_message.PackMessage):
+        if action_order.MessageType == pack_message.EMessageType.EActionRequest:
+            account = action_order.ActionRequest.Account
+            order_connection = self.order_connection_dict.get(account, None)
+            if order_connection:
+                order_connection.Push(action_order)
+                order_connection.HandleMsg() # 发送订单到XTrader
+
+    def close_all_order(self, section_start:int, section_end:int, timestamp:int):
+        pass
+
     def run(self):
         # 注册中断信号
         signal.signal(signal.SIGINT, signal_handler)
@@ -212,19 +265,75 @@ class BaseEngine(object):
         msg.EventLog.Level = pack_message.EEventLogLevel.EINFO
         msg.EventLog.UpdateTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
         self.hp_pack_client.SendData(msg.to_bytes())
+
         # 主要处理逻辑
         while True:
+            # 
+            timestamp_sec:int = int(time.time())
+            is_trading: bool = self.check_trading(timestamp=timestamp_sec)
             # 收取行情数据
             self.data_connection.HandleMsg()
             ret = self.data_connection.Pop(self.msg)
             if ret:
-                if self.msg.MessageType == pack_message.EMessageType.EFutureMarketData:
-                    print_msg("", self.msg)
-                    self.update_tick(self.msg)
+                if is_trading:
+                    self.new_order = False
+                    if self.msg.MessageType == pack_message.EMessageType.EFutureMarketData:
+                        print_msg("run", self.msg)
+                        struct_time = time.strptime(f"{self.msg.FutureMarketData.ActionDay} {self.msg.FutureMarketData.UpdateTime}", "%Y%m%d %H:%M:%S")
+                        timestamp = time.mktime(struct_time) * 1000 + int(self.msg.FutureMarketData.MillSec)
+                        if self.msg.FutureMarketData.Ticker not in self.klines:
+                            kline_generator = KLineGenerator(ticker=self.msg.FutureMarketData.Ticker, snapshot_interval=self.snapshot_interval, 
+                                                            slice_per_sec=self.slice_per_sec, intervals=self.intervals)
+                            kline_generator.set_call_back(self.on_window_bar)
+                            kline_generator.process_tick(section_start=self.section_start, section_end=self.section_end, timestamp=timestamp, 
+                                                        price=self.msg.FutureMarketData.LastPrice, volume=self.msg.FutureMarketData.Volume)
+                            self.klines[self.msg.FutureMarketData.Ticker] = kline_generator
+                        else:
+                            kline_generator = self.klines[self.msg.FutureMarketData.Ticker]
+                            kline_generator.process_tick(section_start=self.section_start, section_end=self.section_end, timestamp=timestamp, 
+                                                        price=self.msg.FutureMarketData.LastPrice, volume=self.msg.FutureMarketData.Volume)
+                        if timestamp + 10 * 1000 < self.section_end:
+                            self.update_tick(self.msg)
 
-                elif self.msg.MessageType == pack_message.EMessageType.EStockMarketData:
-                    print_msg("", self.msg)
-                    self.update_tick(self.msg)
+                    elif self.msg.MessageType == pack_message.EMessageType.EStockMarketData:
+                        print_msg("run", self.msg)
+                        struct_time = time.strptime(f"{datetime.datetime.now().strftime('%Y%m%d')} {self.msg.StockMarketData.UpdateTime}", "%Y%m%d %H:%M:%S")
+                        timestamp = time.mktime(struct_time) * 1000 + int(self.msg.StockMarketData.MillSec)
+                        if self.msg.StockMarketData.Ticker not in self.klines:
+                            kline_generator = KLineGenerator(ticker=self.msg.StockMarketData.Ticker, snapshot_interval=self.snapshot_interval, 
+                                                            slice_per_sec=self.slice_per_sec, intervals=self.intervals)
+                            kline_generator.set_call_back(self.on_window_bar)
+                            kline_generator.process_tick(section_start=self.section_start, section_end=self.section_end, timestamp=timestamp, 
+                                                        price=self.msg.StockMarketData.LastPrice, volume=self.msg.StockMarketData.Volume)
+                            self.klines[self.msg.StockMarketData.Ticker] = kline_generator
+                        else:
+                            kline_generator = self.klines[self.msg.StockMarketData.Ticker]
+                            kline_generator.process_tick(section_start=self.section_start, section_end=self.section_end, timestamp=timestamp, 
+                                                        price=self.msg.StockMarketData.LastPrice, volume=self.msg.StockMarketData.Volume)
+                        if timestamp + 10 * 1000 < self.section_end:
+                            self.update_tick(self.msg)
+                    
+                    if self.new_order:
+                        if self.order_request.MessageType == pack_message.EMessageType.EOrderRequest:
+                            for account, order_connection in self.order_connection_dict.items():
+                                self.order_request.OrderRequest.Account = account
+                                order_connection.Push(self.order_request)
+                                order_connection.HandleMsg() # 发送订单到XTrader
+                                if self.order_request.OrderRequest.Direction == pack_message.EOrderDirection.EBUY:
+                                    logger.info(f"send buy order to {account} ChannelID:{self.order_request.ChannelID} {self.order_request.OrderRequest.Ticker} price:{self.order_request.OrderRequest.Price} orderid:{self.order_request.OrderRequest.OrderToken} Direction:{self.order_request.OrderRequest.Direction} Offset:{self.order_request.OrderRequest.Offset}")
+                                else:
+                                    logger.info(f"send sell order to {account} ChannelID:{self.order_request.ChannelID} {self.order_request.OrderRequest.Ticker} price:{self.order_request.OrderRequest.Price} orderid:{self.order_request.OrderRequest.OrderToken} Direction:{self.order_request.OrderRequest.Direction} Offset:{self.order_request.OrderRequest.Offset}")
+
+
+            # 检查K线闭合
+            if self.timestamp_sec < timestamp_sec:
+                self.timestamp_sec = timestamp_sec
+            if self.timestamp_sec % 60 == 5:
+                if self.section_start + 60 * 1000 <= timestamp_sec * 1000 and timestamp_sec * 1000  < self.section_end + 60 * 1000:
+                    self.timestamp_sec = self.timestamp_sec + 1
+                    for ticker, current_kline in self.klines.items():
+                        current_kline.close_kline(section_start=self.section_end, section_end=self.section_end, timestamp=timestamp_sec * 1000)
+                    logger.info(f"当前时间:{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}超时闭合K线")
                     
             # 回报数据处理
             for account, order_connection in self.order_connection_dict.items():
@@ -240,7 +349,7 @@ class BaseEngine(object):
                             account_info_dict["Product"] = self.msg.AccountFund.Product
                             account_info_dict["Account"] = self.msg.AccountFund.Account
                             account_info_dict["Balance"] = self.msg.AccountFund.Balance
-                            account_info_dict["Avaliable"] = self.msg.AccountFund.Avaliable
+                            account_info_dict["Available"] = self.msg.AccountFund.Available
                             account_info_dict["ChannelID"] = self.msg.ChannelID
                             self.account_info_dict[self.msg.AccountFund.Account] = account_info_dict
 
@@ -262,10 +371,9 @@ class BaseEngine(object):
                             self.notify_orderstatus(self.msg)
                     else:
                         break
-            # 获取当前时间
-            now = datetime.datetime.now().time()  # 获取当前时间部分
+                        
             # 比较时间
-            if now > self.end_time:
+            if timestamp_sec > self.end_time:
                 logger.info(f"当前时间:{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}，已经收盘，退出程序")
                 break
         sys.stdout.flush()

@@ -7,3 +7,12 @@ XQuantConfig:
   MarketServerName: MarketServer
   OrderServerName: OrderServer
   CPUSET: 17
+  CPUSET: -1, -1
+  SnapshotInterval: 0
+  SlicePerSec: 2
+  KLineIntervals: 60, 300
+  TradingSection:
+    - 21:00:00-23:30:00
+    - 09:00:00-10:15:00
+    - 10:30:00-11:30:00
+    - 13:30:00-15:00:00
