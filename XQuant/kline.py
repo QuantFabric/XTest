@@ -103,7 +103,7 @@ class KLineGenerator:
                     current_kline.volume = volume
                 # 周期内最后一个Tick切片数据, 关闭K线
                 if timestamp >= current_kline.end_time:
-                    if section_start + 60 * 1000 <= timestamp and timestamp < section_end + 60 * 1000:
+                    if section_start + 59 * 1000 <= timestamp and timestamp < section_end + 59 * 1000:
                         self.history[interval].append(copy.copy(current_kline)) 
                         if self.on_window_bar:
                             self.on_window_bar(current_kline)
@@ -134,7 +134,7 @@ class KLineGenerator:
                 current_kline.volume = volume
             # 超时关闭K线
             elif(current_kline.end_time < window_start):
-                if section_start + 60 * 1000 <= timestamp and timestamp < section_end + 60 * 1000:
+                if section_start + 59 * 1000 <= timestamp and timestamp < section_end + 59 * 1000:
                     # 关闭当前K线
                     self.history[interval].append(copy.copy(current_kline))
                     if self.on_window_bar:

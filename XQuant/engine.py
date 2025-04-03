@@ -329,7 +329,7 @@ class BaseEngine(object):
             if self.timestamp_sec < timestamp_sec:
                 self.timestamp_sec = timestamp_sec
             if self.timestamp_sec % 60 == 5:
-                if self.section_start + 60 * 1000 <= timestamp_sec * 1000 and timestamp_sec * 1000  < self.section_end + 60 * 1000:
+                if self.section_start + 59 * 1000 <= timestamp_sec * 1000 and timestamp_sec * 1000  < self.section_end + 59 * 1000:
                     self.timestamp_sec = self.timestamp_sec + 1
                     for ticker, current_kline in self.klines.items():
                         current_kline.close_kline(section_start=self.section_end, section_end=self.section_end, timestamp=timestamp_sec * 1000)

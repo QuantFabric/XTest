@@ -91,10 +91,10 @@ if __name__ == "__main__":
     # 输出至日志文件
     logger.add(f"{output_path}/{strategy_name}_{datetime.datetime.now().strftime('%Y%m%d')}.log", level="DEBUG", rotation="500 MB")
 
-    account_list = ["188795", "237477"]
+    account_list = ["188795"]
     market_server_name = "MarketServer"
     order_server_name = "OrderServer"
-    xwatcher_ip = "192.168.1.168"
+    xwatcher_ip = "127.0.0.1"
     xwatcher_port = 8001
     snapshot_interval = 0
     slice_per_sec = 2

@@ -74,15 +74,15 @@ if __name__ == "__main__":
     # 输出至日志文件
     logger.add(f"{output_path}/{strategy_name}_{datetime.datetime.now().strftime('%Y%m%d')}.log", level="DEBUG", rotation="500 MB")
 
-    account_list = ["188795", "237477"]
+    account_list = ["188795"]
     market_server_name = "MarketServer"
     order_server_name = "OrderServer"
-    xwatcher_ip = "192.168.1.168"
+    xwatcher_ip = "127.0.0.1"
     xwatcher_port = 8001
     snapshot_interval = 0
     slice_per_sec = 2
     intervals = [60, 300, 900, 1800]
-    trading_sections = [("20:59:00", "02:30:00"), ("08:59:00", "10:15:00"), ("10:30:00", "11:30:00"), ("13:30:00", "15:00:00")]
+    trading_sections = [("21:00:00", "23:30:00"), ("09:00:00", "10:15:00"), ("10:30:00", "11:30:00"), ("13:30:00", "15:00:00")]
 
     strategy_engine = StrategyTest(strategy_name=strategy_name, snapshot_interval=snapshot_interval, slice_per_sec=slice_per_sec, intervals=intervals, trading_sections=trading_sections)
     strategy_engine.connect_to_xwatcher(ip=xwatcher_ip, port=xwatcher_port)
