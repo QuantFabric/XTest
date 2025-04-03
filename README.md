@@ -23,7 +23,7 @@ git clone https://github.com/QuantFabric/XTest.git XTest
     ```bash
     cd XTest
     cp libstdc++.so.6.0.29 /lib64
-    cd lib64
+    cd /lib64
     rm libstdc++.so.6
     ln -s libstdc++.so.6.0.29 libstdc++.so.6
     ```
