@@ -13,11 +13,31 @@
 
 ## 二、QuantFabric交易系统部署
 ### 1、XTest下载
-- 在Linux服务器创建xtrader用户，并在xtrader主目录下执行：
+- 在CentOS 7.9 Linux服务器创建xtrader用户，并在xtrader主目录下执行：
 
 ```bash
 git clone https://github.com/QuantFabric/XTest.git XTest
 ```
+
+- 升级glibc++(root用户)：
+    ```bash
+    cd XTest
+    cp libstdc++.so.6.0.29 /lib64
+    cd lib64
+    rm libstdc++.so.6
+    ln -s libstdc++.so.6.0.29 libstdc++.so.6
+    ```
+
+- 更新当前要交易的合约列表到TickerList.yml，覆盖到交易进程XMarketCenter、XTrader、XQuant、HFTrader交易进程的Config目录下。
+
+- XQuant虚拟环境安装：
+    ```bash
+    conda create -n XQuant python=3.9
+    conda activate XQuant
+    pip3 install HPSocket -i https://mirrors.aliyun.com/pypi/simple/
+    pip3 install loguru -i https://mirrors.aliyun.com/pypi/simple/
+    conda install -c conda-forge ta-lib
+    ```
 
 ### 2、简单Demo部署
 - 一个简单的QuantFabric量化交易系统可以仅包括一个CTP行情网关示例和CTP交易网关实例。
@@ -53,7 +73,7 @@ git clone https://github.com/QuantFabric/XTest.git XTest
 - XMonitor监控客户端启动：
     ```bash
     # 打包依赖库到当前目录Lib目录下，执行一次即可
-    /home/xtrader/XTest/XMonitor/DeployApp.sh XMonitor_0.9.0
+    /home/xtrader/XTest/XMonitor/DeployApp.sh XMonitor_0.9.2
     sh /home/xtrader/XTest/XMonitor/run.sh
     ```
 
@@ -67,7 +87,7 @@ git clone https://github.com/QuantFabric/XTest.git XTest
 - XMonitor监控客户端启动：
     ```bash
     # 打包依赖库到当前目录Lib目录下，执行一次即可
-    /home/xtrader/XTest/XMonitor/DeployApp.sh XMonitor_0.9.0
+    /home/xtrader/XTest/XMonitor/DeployApp.sh XMonitor_0.9.2
     sh /home/xtrader/XTest/XMonitor/run.sh
     ```
 

@@ -2,6 +2,7 @@
 /*/*.con
 /*/pid.txt
 /*/log/
+/*/__pycache__/
 /*/output/
 /*/core.*
 /XServer/Bin/

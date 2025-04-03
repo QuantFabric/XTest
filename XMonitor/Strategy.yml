@@ -1,11 +1,11 @@
 StrategyList:
   -
     EngineID: 1
-    Strategy: SMAStrategy
+    Strategy: TestStrategy
 
   -
     EngineID: 2
-    Strategy: MACDStrategy
+    Strategy: SMAStrategy
 
 
   
