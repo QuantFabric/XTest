@@ -1,36 +1,36 @@
 TickerList:
   -
     TickerIndex: 0
-    Ticker: al2506
+    Ticker: al2512
     ExchangeID: SHFE
     PriceTick: 5.0
 
   -
     TickerIndex: 1
-    Ticker: al2507
+    Ticker: al2603
     ExchangeID: SHFE
     PriceTick: 5.0
 
   -
     TickerIndex: 2
-    Ticker: al2508
+    Ticker: al2604
     ExchangeID: SHFE
     PriceTick: 5.0
 
   -
     TickerIndex: 3
-    Ticker: al2509
+    Ticker: al2605
     ExchangeID: SHFE
     PriceTick: 5.0
 
   -
     TickerIndex: 4
-    Ticker: al2510
+    Ticker: al2606
     ExchangeID: SHFE
     PriceTick: 5.0
 
   -
     TickerIndex: 5
-    Ticker: al2512
+    Ticker: al2607
     ExchangeID: SHFE
     PriceTick: 5.0
